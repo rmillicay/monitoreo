@@ -78,6 +78,8 @@ services:
     ports:
       - 9116:9116
       - 116:116/udp
+    networks:
+      - monitoring
     restart: always
     command: --config.file=/etc/snmp_exporter/snmp.yml
 
