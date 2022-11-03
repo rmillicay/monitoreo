@@ -71,15 +71,15 @@ services:
     deploy:
       mode: global
 
-    snmp:
-      image: quay.io/prometheus/snmp-exporter
-      volumes:
-        - /opt/docker-persist/snmp-exporter:/etc/snmp_exporter
-      ports:
-        - 9116:9116
-        - 116:116/udp
-      restart: always
-      command: --config.file=/etc/snmp_exporter/snmp.yml
+  snmp:
+    image: quay.io/prometheus/snmp-exporter
+    volumes:
+      - /opt/docker-persist/snmp-exporter:/etc/snmp_exporter
+    ports:
+      - 9116:9116
+      - 116:116/udp
+    restart: always
+    command: --config.file=/etc/snmp_exporter/snmp.yml
 
   portainer:
     image: portainer/portainer-ce:2.0.0
