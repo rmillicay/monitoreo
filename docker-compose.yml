@@ -75,6 +75,8 @@ services:
     image: amkay/snmp_exporter
     volumes:
       - ./snmp_exporter/:/etc/snmp_exporter/
+    networks:
+      - monitoring
     expose:
       - 9116
 
