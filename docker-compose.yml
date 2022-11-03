@@ -77,6 +77,8 @@ services:
       - ./snmp_exporter/:/etc/snmp_exporter/
     networks:
       - monitoring
+    ports:
+      - 9116:9116
     expose:
       - 9116
 
