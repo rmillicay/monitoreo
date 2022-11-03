@@ -75,12 +75,15 @@ services:
     image: quay.io/prometheus/snmp-exporter
     volumes:
       - /opt/docker-persist/snmp-exporter:/etc/snmp_exporter
+    command: --config.file=/etc/snmp_exporter/snmp.yml
     ports:
       - 9116:9116
     networks:
       - monitoring
+    expose:
+      - 9090
     restart: always
-    command: --config.file=/etc/snmp_exporter/snmp.yml
+    
 
   portainer:
     image: portainer/portainer-ce:2.0.0
