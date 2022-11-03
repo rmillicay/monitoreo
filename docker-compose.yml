@@ -71,6 +71,13 @@ services:
     deploy:
       mode: global
 
+  snmp-exporter:
+    image: amkay/snmp_exporter
+    volumes:
+      - ./snmp_exporter/:/etc/snmp_exporter/
+    expose:
+      - 9116
+
   portainer:
     image: portainer/portainer-ce:2.0.0
     command: -H unix:///var/run/docker.sock
