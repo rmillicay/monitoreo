@@ -1,5 +1,7 @@
-#Repositorio para generar monitoreo de infraestructura
+## Monitoreo de infraestructura
 
-El repo consiste en tener las herramientas necesarias para generar desde un docker-compose.
+En este ropositorio voy a ddocumentar las herramientas necesarias para generar desde un docker-compose el monitoreo de infraestructura.
 
-Se genera con Docker Compose con: Prometheus, Grafana, Node Exporter
+Consiste en tener un Docker Compose con: Prometheus, Grafana, Node Exporter
+
+
