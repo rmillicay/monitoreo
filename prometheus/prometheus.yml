@@ -1,0 +1,103 @@
+# my global config
+global:
+        scrape_interval:     30s
+        evaluation_interval: 30s
+
+scrape_configs:
+        - job_name: 'Prometheus'
+          static_configs:
+                  - targets: ['10.1.1.123:9090']
+
+        - job_name: 'Grafana'
+          static_configs:
+                  - targets: ['10.1.1.123:3000']
+
+        - job_name: 'Linux'
+          static_configs:
+                  - targets: ['10.1.1.123:9100']
+                  - targets: ['10.1.1.135:9100']
+
+        - job_name: 'RDS'
+          static_configs:
+                  - targets: ['10.1.1.106:9182']
+                  - targets: ['10.1.1.111:9182']
+                  - targets: ['10.1.1.113:9182']
+
+        - job_name: 'Servidores'
+          static_configs:
+                  - targets: ['10.1.1.1:9182']       # AD
+                  - targets: ['10.1.1.2:9182']       # AD
+                  - targets: ['10.1.1.6:9182']       # Archivos
+                  - targets: ['10.1.1.11:9182']      # Perfiles
+                  - targets: ['10.1.1.14:9182']      # Skylab
+                  - targets: ['10.1.1.17:9182']      # Impresoras
+                  - targets: ['10.1.1.12:9182']      # VeeamBackup
+
+        - job_name: 'Servidores Outside'
+          static_configs:
+                  - targets: ['172.16.32.5:9182']    # Windplex-server
+
+        - job_name: 'PCs'
+          static_configs:
+                  - targets: ['du1.grupoedisur.com.ar:9182']  # SANTIAGO TABORDA
+
+        - job_name: 'Webs'
+          metrics_path: /probe
+          params:
+                  module: [http_2xx]
+          static_configs:
+                  - targets:
+                          - www.grupoedisur.com.ar
+                          - casona.grupoedisur.com.ar/EdisurProveedores
+                          - edisur.cloudycrm.net
+                          - grupoedisur.turecibo.com.ar
+                          - 18.230.180.132
+          relabel_configs:
+                  - source_labels: [__address__]
+                    target_label: __param_target
+                  - source_labels: [__param_target]
+                    target_label: instance
+                  - target_label: __address__
+                    replacement: 127.0.0.1:9115
+        - job_name: 'Dispositivos Outside'
+          static_configs:
+            - targets:
+              - 10.1.0.1 # SNMP device
+              - 172.16.8.1 # SteelFrame
+              - 172.16.24.1 # Riberas
+              - 172.16.32.1 # Galpon
+              - 172.16.40.1 # Prados
+              - 172.16.48.1 # Loteo II
+              - 172.16.64.1 # Pilares
+              - 172.16.72.1 # Lanfergarro
+              - 172.16.80.1 # Villa Allende
+              - 172.16.88.1 # Casonas del Sur II
+              - 172.16.104.1 # Corporativo
+          metrics_path: /snmp
+          params:
+            module: [if_mib]
+          relabel_configs:
+            - source_labels: [__address__]
+              target_label: __param_target
+            - source_labels: [__param_target]
+              target_label: instance
+            - target_label: __address__
+              replacement: 127.0.0.1:9116
+        - job_name: 'Ubiquiti'
+          static_configs:
+            - targets:
+              - 172.16.8.240 # SNMP device
+              - 172.16.8.241 # SteelFrame
+              - 172.16.24.240 # Riberas
+              - 172.16.24.241 # Galpon
+          scrape_timeout: 30s
+          metrics_path: /snmp
+          params:
+            module: [ubiquiti_airfiber]
+          relabel_configs:
+            - source_labels: [__address__]
+              target_label: __param_target
+            - source_labels: [__param_target]
+              target_label: instance
+            - target_label: __address__
+              replacement: 10.1.1.123:9116
