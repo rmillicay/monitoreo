@@ -5,7 +5,7 @@ pipeline {
       agent any
       steps {
         sh '''echo \'Construccion\'
-docker run -p 80:80 --name web nginx:latest'''
+docker run -d -p 80:80 --name web nginx:latest'''
       }
     }
 
